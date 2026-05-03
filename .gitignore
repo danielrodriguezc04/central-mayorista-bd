@@ -4,11 +4,6 @@ __pycache__/
 .venv/
 venv/
 
-# Opcional si los parquet pesan mucho
-lakehouse/bronze/*.parquet
-lakehouse/silver/*.parquet
-lakehouse/gold/*.parquet
-
 # DuckDB local
 *.duckdb
 *.db
