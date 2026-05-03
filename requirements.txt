@@ -1,0 +1,6 @@
+duckdb
+pandas
+sqlalchemy
+pyarrow
+psycopg2-binary
+clickhouse-connect
