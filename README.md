@@ -96,15 +96,32 @@ central-mayorista-bd/
 │   └── generate_test_data.py
 │── main.py
 │── requirements.txt
+│── docker-compose.yml
 │── README.md
 ```
 
 ---
 
+## Levantar servicios con Docker
+
+Antes de ejecutar el pipeline, el usuario debe construir y levantar los servicios definidos en `docker-compose.yml`.
+
+El proyecto utiliza Docker Compose para crear las bases de datos necesarias:
+
+- PostgreSQL como fuente operacional.
+- ClickHouse como motor analítico previo.
+
+### Construir y levantar contenedores
+
+```bash
+docker compose up -d --build
+```
+
+
 ## Ejecutar el pipeline completo
 
 ```bash
-git clone https://github.com/USUARIO/central-mayorista-bd.git
+git clone https://github.com/danielrodriguezc04/central-mayorista-bd
 cd central-mayorista-bd
 pip install -r requirements.txt
 python main.py

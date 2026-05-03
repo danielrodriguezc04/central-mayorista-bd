@@ -31,22 +31,22 @@ services:
       - clickhouse_data:/var/lib/clickhouse
       - ./clickhouse/init:/docker-entrypoint-initdb.d
 
-  grafana:
-    image: grafana/grafana:11.0.0
-    container_name: central_grafana
-    restart: unless-stopped
-    ports:
-      - "3001:3001"
-    environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin123
-      GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
-    volumes:
-      - grafana_data:/var/lib/grafana
-    depends_on:
-      - clickhouse
+  # grafana:
+  #   image: grafana/grafana:11.0.0
+  #   container_name: central_grafana
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     GF_SECURITY_ADMIN_USER: admin
+  #     GF_SECURITY_ADMIN_PASSWORD: admin123
+  #     GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   depends_on:
+  #     - clickhouse
 
 volumes:
   postgres_data:
   clickhouse_data:
-  grafana_data:
+  # grafana_data:

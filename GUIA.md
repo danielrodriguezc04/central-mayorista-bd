@@ -258,3 +258,92 @@ Resultado
 ```text
 Datos sintéticos generados correctamente: 5000 ventas nuevas.
 ```
+
+# Paso 6 — Pipeline Completo
+
+## Objetivo
+
+Como fase final del laboratorio se integró todo el proceso del Mini-Lakehouse en un único punto de ejecución mediante el archivo:
+
+```bash
+main.py
+```
+
+
+# Ejecutar todo con un comando
+
+```bash
+python main.py
+```
+
+---
+
+# Qué hace
+
+Ejecuta automáticamente:
+
+```text
+1. Bronze
+2. Silver
+3. Gold
+4. Consultas analíticas
+5. Benchmark
+```
+
+# Paso 6 — Pipeline Completo
+
+## Objetivo
+
+Como fase final del laboratorio se integró todo el proceso del Mini-Lakehouse en un único punto de ejecución mediante el archivo:
+
+```bash
+main.py
+````
+
+Esto permite ejecutar el flujo completo desde la raíz del proyecto con un solo comando.
+
+---
+
+## Ejecución
+
+```bash
+python main.py
+```
+
+---
+
+## Procesos automatizados
+
+El pipeline ejecuta secuencialmente:
+
+1. Extracción hacia Zona Bronze
+2. Limpieza y calidad hacia Zona Silver
+3. Construcción dimensional hacia Zona Gold
+4. Consultas analíticas en DuckDB
+5. Benchmark de rendimiento
+
+---
+
+## Beneficios obtenidos
+
+* Reproducibilidad total del proyecto
+* Automatización del flujo de datos
+* Facilidad de evaluación académica
+* Ejecución estándar tipo industria
+
+---
+
+## Resultado esperado
+
+```text
+Pipeline finalizado correctamente
+Archivos finales disponibles en lakehouse/gold/
+```
+
+---
+
+## Conclusión
+
+El proyecto Central Mayorista quedó implementado como una arquitectura Lakehouse funcional de extremo a extremo, ejecutable mediante un solo comando.
+
+```
