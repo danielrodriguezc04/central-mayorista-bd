@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Central Mayorista</title>
+  <link rel="stylesheet" href="/public/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Dashboard Central Mayorista</h1>
+      <p>Modelo analítico Lakehouse sobre ventas, productos, categorías y subregiones.</p>
+    </header>
+
+    <section class="kpis">
+      <div class="card"><span>Total ventas</span><strong id="totalVentas">-</strong></div>
+      <div class="card"><span>Unidades vendidas</span><strong id="unidadesVendidas">-</strong></div>
+      <div class="card"><span>Ingresos totales</span><strong id="ingresosTotales">-</strong></div>
+      <div class="card"><span>Ticket promedio</span><strong id="ticketPromedio">-</strong></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Ventas por mes</h2>
+        <canvas id="ventasMesChart"></canvas>
+      </div>
+
+      <div class="panel">
+        <h2>Top productos por ingresos</h2>
+        <canvas id="topProductosChart"></canvas>
+      </div>
+
+      <div class="panel">
+        <h2>Ingresos por categoría</h2>
+        <canvas id="categoriasChart"></canvas>
+      </div>
+
+      <div class="panel">
+        <h2>Ingresos por subregión</h2>
+        <canvas id="subregionesChart"></canvas>
+      </div>
+    </section>
+
+    <section class="process-section">
+  <h2>Proceso Lakehouse Implementado</h2>
+
+  <div class="process-grid">
+    <div class="process-card">
+      <h3>Bronze</h3>
+      <p>Datos crudos extraídos desde PostgreSQL y ClickHouse.</p>
+      <strong id="bronzeRows">-</strong>
+    </div>
+
+    <div class="process-card">
+      <h3>Silver</h3>
+      <p>Limpieza, tipado, nulos y eliminación de duplicados.</p>
+      <strong id="silverRows">-</strong>
+    </div>
+
+    <div class="process-card">
+      <h3>Gold</h3>
+      <p>Modelo estrella con tabla de hechos y dimensiones.</p>
+      <strong id="goldRows">-</strong>
+    </div>
+
+    <div class="process-card">
+      <h3>SCD Tipo 2</h3>
+      <p>Historial de cambios en DIM_PRODUCTO.</p>
+      <strong id="scdRows">-</strong>
+    </div>
+  </div>
+</section>
+
+  <section class="grid">
+    <div class="panel">
+      <h2>Benchmark PostgreSQL vs DuckDB</h2>
+      <canvas id="benchmarkChart"></canvas>
+    </div>
+
+    <div class="panel">
+      <h2>SCD Tipo 2 — Versiones de producto</h2>
+      <canvas id="scdChart"></canvas>
+    </div>
+  </section>
+    </main>
+
+  <script src="/public/app.js"></script>
+</body>
+</html>

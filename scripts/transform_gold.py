@@ -35,14 +35,35 @@ dim_tiempo = pd.DataFrame({
 dim_tiempo.to_parquet(GOLD / "dim_tiempo.parquet", index=False)
 
 # =========================
-# DIM_PRODUCTO
+# DIM_PRODUCTO con SCD Tipo 2
 # =========================
-dim_producto = productos[
+dim_producto_base = productos[
     ["id", "nombre", "categoria", "precio"]
 ].copy()
 
+dim_producto_base.rename(columns={"id": "producto_id"}, inplace=True)
+
+# Versión actual del producto
+dim_producto_actual = dim_producto_base.copy()
+dim_producto_actual["version_producto"] = 2
+dim_producto_actual["valido_desde"] = pd.Timestamp("2026-04-01")
+dim_producto_actual["valido_hasta"] = pd.Timestamp("9999-12-31")
+dim_producto_actual["activo"] = True
+
+# Versión histórica simulada
+dim_producto_historico = dim_producto_base.copy()
+dim_producto_historico["precio"] = (dim_producto_historico["precio"] * 0.90).round(2)
+dim_producto_historico["version_producto"] = 1
+dim_producto_historico["valido_desde"] = pd.Timestamp("2026-01-01")
+dim_producto_historico["valido_hasta"] = pd.Timestamp("2026-03-31 23:59:59")
+dim_producto_historico["activo"] = False
+
+dim_producto = pd.concat(
+    [dim_producto_historico, dim_producto_actual],
+    ignore_index=True
+)
+
 dim_producto.insert(0, "producto_sk", range(1, len(dim_producto) + 1))
-dim_producto.rename(columns={"id": "producto_id"}, inplace=True)
 
 dim_producto.to_parquet(GOLD / "dim_producto.parquet", index=False)
 
@@ -75,8 +96,8 @@ dim_subregion.to_parquet(GOLD / "dim_subregion.parquet", index=False)
 # =========================
 fact = ventas.copy()
 
-# fecha sola
-fact["fecha"] = pd.to_datetime(fact["fecha_venta"]).dt.normalize()
+fact["fecha_venta"] = pd.to_datetime(fact["fecha_venta"])
+fact["fecha"] = fact["fecha_venta"].dt.normalize()
 
 # Join tiempo
 fact = fact.merge(
@@ -85,13 +106,25 @@ fact = fact.merge(
     how="left"
 )
 
-# Join producto
+# Join producto con SCD Tipo 2
 fact = fact.merge(
-    dim_producto[["producto_sk", "producto_id"]],
-    left_on="producto_id",
-    right_on="producto_id",
+    dim_producto[
+        [
+            "producto_sk",
+            "producto_id",
+            "valido_desde",
+            "valido_hasta",
+            "version_producto"
+        ]
+    ],
+    on="producto_id",
     how="left"
 )
+
+fact = fact[
+    (fact["fecha_venta"] >= fact["valido_desde"]) &
+    (fact["fecha_venta"] <= fact["valido_hasta"])
+].copy()
 
 # Join categoria
 fact = fact.merge(
@@ -119,7 +152,8 @@ fact_ventas = fact[
         "subregion_sk",
         "cantidad",
         "precio_unitario",
-        "total"
+        "total",
+        "version_producto"
     ]
 ].copy()
 

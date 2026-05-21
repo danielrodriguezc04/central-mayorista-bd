@@ -1,0 +1,13 @@
+
+QUERY: q2_top_productos
+
+Mediciones con warm-up previo:
+- Warm-up: 3 ejecuciones
+- Mediciones: 5 ejecuciones
+
+Tiempos medidos (ms):
+[17.78, 18.01, 18.13, 19.37, 19.59]
+
+Mediana baseline: 18.13 ms
+Mínimo: 17.78 ms
+Máximo: 19.59 ms

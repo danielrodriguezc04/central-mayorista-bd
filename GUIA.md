@@ -248,15 +248,17 @@ Esta práctica es común en entornos profesionales cuando se requiere validar ar
 
 ## Proceso implementado
 
-Se desarrolló el script:
+## Mejora aplicada — Escalamiento del volumen de datos
+
+Atendiendo la observación del docente, se incrementó el volumen de datos del proyecto mediante la generación de datos sintéticos.
+
+El dataset pasó de aproximadamente 5.810 ventas a:
 
 ```bash
 scripts/generate_test_data.py
 ```
-
-Resultado
 ```text
-Datos sintéticos generados correctamente: 5000 ventas nuevas.
+105.010 ventas en PostgreSQL
 ```
 
 # Paso 6 — Pipeline Completo

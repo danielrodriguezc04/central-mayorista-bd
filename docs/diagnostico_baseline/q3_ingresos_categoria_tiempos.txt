@@ -1,0 +1,13 @@
+
+QUERY: q3_ingresos_categoria
+
+Mediciones con warm-up previo:
+- Warm-up: 3 ejecuciones
+- Mediciones: 5 ejecuciones
+
+Tiempos medidos (ms):
+[12.93, 13.1, 13.52, 14.03, 14.87]
+
+Mediana baseline: 13.52 ms
+Mínimo: 12.93 ms
+Máximo: 14.87 ms
