@@ -227,6 +227,44 @@ python scripts/generate_test_data.py
 
 ---
 
+# Optimización Analítica (Taller 4)
+
+Se analizaron tres consultas analíticas mediante `EXPLAIN ANALYZE`:
+
+- Q1: Ventas por mes
+- Q2: Top productos por ingresos
+- Q3: Ingresos por categoría
+
+## Problemas identificados
+
+- Lectura completa de `fact_ventas`.
+- Agregaciones repetitivas.
+- Reprocesamiento innecesario de más de 105.000 registros.
+
+## Intervención aplicada
+
+Se implementó una capa Gold Optimized basada en preagregaciones.
+
+## Resultados finales
+
+| Query | Baseline (Mediana) | Optimizada (Mediana) | Mejora |
+|---------|---------:|---------:|---------:|
+| Q1 | 28.69 ms | 6.16 ms | 4.66x |
+| Q2 | 33.21 ms | 6.18 ms | 5.37x |
+| Q3 | 20.55 ms | 6.32 ms | 3.25x |
+
+## Evidencias
+
+Los planes completos EXPLAIN ANALYZE pueden consultarse en:
+
+docs/diagnostico_baseline/
+docs/optimizacion/
+
+## Volumen de datos
+
+El proyecto fue escalado hasta superar las 105.000 ventas.
+
+
 ## Conclusiones
 
 * El enfoque Lakehouse permitió separar procesamiento operacional y analítico.
